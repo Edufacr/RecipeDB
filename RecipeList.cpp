@@ -20,9 +20,30 @@ RecipeNode *RecipeList::Search(std::string s) {
 }
 
 void RecipeList::Delete(RecipeNode *node) {
+    if(node != nullptr){
+        if(node == FirstNode){
+            DeleteFirst();
+        }
+        if(node->next == nullptr){
+            DeleteLast();
+           // FirstNode = nullptr;
+        }
+        else
+        {
+            RecipeNode* tmp = FirstNode;
+            while(tmp->next != node){
+                tmp = tmp->next;
+            }
+            tmp->next = node->next;
+            node->next = nullptr;
+            delete node;
+        }
+        
+    }
+}
+void DeleteLast(){
 
 }
-
 void RecipeList::PrintAll() {
     RecipeNode* tmp = FirstNode;
     while(tmp != nullptr){

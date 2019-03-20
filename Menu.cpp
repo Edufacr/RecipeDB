@@ -116,7 +116,21 @@ void Menu::SelectOption(){
     }
 
 }
-    void Menu::DeleteRecipeMenu(){}
+    void Menu::DeleteRecipeMenu(){
+        cout<<"Enter the name of the recipe:"<<endl;
+        string name;
+        cin>>name;
+        RecipeNode* node = List->Search(name);
+        if(node != nullptr){
+            List->Delete(node);
+            
+        }
+        else
+        {
+            cout<<"Non existent recipe"<<endl;
+        }
+        
+    }
 
 
 

@@ -1,6 +1,8 @@
 #include <iostream>
-
+#include "RecipeList.h"
+#include "Menu.h"
 int main() {
-    std::cout << "Hello, World!" << std::endl;
-    return 0;
+    RecipeList* List = new RecipeList();
+    Menu* menu = new Menu(List);
+    menu->MainMenu();
 }

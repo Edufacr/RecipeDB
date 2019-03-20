@@ -16,6 +16,7 @@ struct RecipeList {
     RecipeNode* Search(std::string s);
     void Delete(RecipeNode* node);
     void DeleteFirst();
+    void DeleteLast();
     void PrintAll();
 
 
