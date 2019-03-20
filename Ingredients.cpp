@@ -7,11 +7,18 @@
 Ingredients::Ingredients(const std::string &name, int quantity, const std::string &mesureUnit) : name(name),
                                                                                                  quantity(quantity),
                                                                                                  mesureUnit(
-                                                                                                         mesureUnit) {}
+                                                                                                         mesureUnit) {
+    erased = true;
+}
 
 Ingredients::Ingredients() {
     name = "";
     quantity = 0;
     mesureUnit = "";
+    erased = true;
+}
+
+void Ingredients::setQuantity(int quantity) {
+    Ingredients::quantity = quantity;
 }
 

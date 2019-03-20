@@ -9,12 +9,15 @@
 #include "RecipeNode.h"
 #include "Recipe.h"
 
-class RecipeList {
+struct RecipeList {
     RecipeNode* FirstNode;
 
     void InsertFirst(Recipe* recipe);
     RecipeNode* Search(std::string s);
     void Delete(RecipeNode* node);
+    void DeleteFirst();
+    void PrintAll();
+
 
 
 

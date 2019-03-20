@@ -30,6 +30,15 @@ struct Recipe {
 
     Ingredients* SearchIngredient(std::string s);
 
+    void AddIngredient(Ingredients* ing, int pos);
+
+    bool AddIngredient(int quantity, std::string s,std::string mesureunit);
+
+    int GetFreeIngredientSpot();
+
+    void PrintIngredients();
+
+    void Print();
 };
 
 

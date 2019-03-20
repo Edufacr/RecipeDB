@@ -12,8 +12,10 @@ struct Ingredients {
     std::string name;
     int quantity;
     std::string mesureUnit;
+    bool erased;
     //flag de si esta borrado bool deleted;
 
+    void setQuantity(int quantity);
 
     Ingredients(const std::string &name, int quantity, const std::string &mesureUnit);
 

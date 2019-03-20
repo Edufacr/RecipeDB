@@ -4,9 +4,10 @@
 #include <iostream>
 #include "Menu.h"
 #include "Recipe.h"
+#include "RecipeList.h"
 
 using namespace std;
-void MainMenu(){
+void Menu::MainMenu(){
     cout<<"Welcome"<<endl;
 
 
@@ -22,35 +23,36 @@ void MainMenu(){
     cout<<"9. EXIT"<<endl;
 
     cout<<"Choose an option: "<<endl;
+    SelectOption();
 }
 
-void SelectOption(){
+void Menu::SelectOption(){
     int selection;
     cin>> selection;
     switch(selection){
         case 1:
-
+            AddRecipeMenu();
             break;
         case 2:
-
+            SearchRecipeMenu();
             break;
         case 3:
-
+            DeleteRecipeMenu();
             break;
         case 4:
-
+            PrintAllMenu();
             break;
         case 5:
-
+            ModifyRecipeNameMenu();
             break;
         case 6:
-
+            ModifyIngredientQuantity();
             break;
         case 7:
-
+            //AddIngredientMenu()  Search como parametro?
             break;
         case 8:
-
+            DeleteIngredientMenu();
             break;
         case 9:
             exit(0);
@@ -61,7 +63,7 @@ void SelectOption(){
 
     }}
 
-    void AddRecipeMenu(){
+    void Menu::AddRecipeMenu(){
         cout<<"*Add Recipe*"<<endl;
 
         string name;
@@ -69,30 +71,99 @@ void SelectOption(){
 
         cout<<"Please enter the name of the new recipe"<<endl;
         cin>>name;
-        cout<<"Please enter the number of portions"<<endl;
-        cin>>portion;
+        if(List->Search(name) == nullptr){
+            cout<<"Please enter the number of portions"<<endl;
+            cin>>portion;
 
-        Recipe* recipe = new Recipe(name,portion);
+            Recipe* recipe = new Recipe(name,portion);
 
-        for(int i;i<21;i++){
-            cout<<"¿Do you want to enter an ingredient?"<<endl;
-            cout<<"Y/N"<<endl;
-            char answer;
-            cin>>answer;
-            if(answer != 'n'|| answer != 'N'){
-                //Function that enters ingredient
+            for(int i = 0;i<21;i++){
+                cout<<"¿Do you want to enter an ingredient?"<<endl;
+                cout<<"y/n"<<endl;
+                char answer;
+                cin>>answer;
+                if(answer != 'n'){
+                    AddIngredientMenu(recipe);
+                }
+                else
+                    break;
+            }
+        }
+        cout<<"Recipe Already Exists"<<endl;
+    }
+    void Menu::AddIngredientMenu(Recipe* recipe){
+    cout<<"Enter the name of the ingredient:"<<endl;
+    string name;
+    cin>>name;
+    cout<<"Enter the quantity:"<<endl;
+    int quantity;
+    cin>>quantity;
+    cout<<"Enter the mesure Unit"<<endl;
+    string mesureUnit;
+    cin>>mesureUnit;
+    if(recipe->AddIngredient(quantity,name,mesureUnit))
+        cout<<"Ingredient added successfully"<<endl;
+    else
+        cout<<"Error while adding ingredients"<<endl;
+}
+    void Menu::SearchRecipeMenu(){
+    cout<<"Enter the name of the recipe:"<<endl;
+    string name;
+    cin>>name;
+    RecipeNode* ToPrint = List->Search(name);
+    if(ToPrint != nullptr) {
+        ToPrint->recipe->Print();
+    }
+
+}
+    void Menu::DeleteRecipeMenu(){}
+
+
+
+    void Menu::PrintAllMenu(){
+    List->PrintAll();
+}
+    void Menu::ModifyRecipeNameMenu(){
+        cout<<"Enter the name of the recipe you want to change:"<<endl;
+        string name;
+        cin>>name;
+        cout<<"Enter the new name for the recipe:"<<endl;
+        string newname;
+        cin>>newname;
+        RecipeNode* ToChange = List->Search(name);
+        if(ToChange != nullptr){
+            ToChange->recipe->setName(newname);
+        }
+        else
+            cout<<"Non existent recipe "<<endl;
+}
+    void Menu::ModifyIngredientQuantity(){
+        cout<<"Enter the name of the recipe you want to change:"<<endl;
+        string name;
+        cin>>name;
+        RecipeNode* recipenode = List->Search(name);
+        if(recipenode!= nullptr) {
+            cout << "Enter the name of the ingredient you want to change:" << endl;
+            string Ingname;
+            cin >> Ingname;
+            Ingredients* Ingre = recipenode->recipe->SearchIngredient(Ingname);
+            if(Ingre != nullptr) {
+                cout << "Enter the new quantity:" << endl;
+                int q;
+                cin >> q;
+                Ingre->setQuantity(q);
             }
             else
-                break;
+                cout<<"Ingredient not found"<<endl;
         }
+        else
+            cout<<"Recipe not found"<<endl;
 
+}
 
+    void Menu::DeleteIngredientMenu(){}
 
-    }
-    void SearchRecipeMenu();
-    void DeleteRecipeMenu();
-    void PrintAllMenu();
-    void ModifyRecipeNameMenu();
-    void ModifyIngredientQuantity();
-    void AddIngredientMenu();
-    void DeleteIngredientMenu();
+Menu::Menu(RecipeList* list) {
+    List = list;
+}
+Menu::Menu(){}

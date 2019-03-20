@@ -5,7 +5,14 @@
 #ifndef TAREACORTA1_MENU_H
 #define TAREACORTA1_MENU_H
 
-//struct Menu{
+#include "Recipe.h"
+#include "RecipeList.h"
+
+struct Menu{
+    RecipeList* List;
+
+    Menu();
+    Menu(RecipeList* list);
     void MainMenu();
     void SelectOption();
     void AddRecipeMenu();
@@ -14,10 +21,11 @@
     void PrintAllMenu();
     void ModifyRecipeNameMenu();
     void ModifyIngredientQuantity();
-    void AddIngredientMenu();
+    void AddIngredientMenu(Recipe* recipe);
     void DeleteIngredientMenu();
 
-//};
+
+};
 
 
 

@@ -3,6 +3,7 @@
 //
 
 #include "Recipe.h"
+#include <iostream>
 //Constructors
 Recipe::Recipe() {
     name = "";
@@ -31,16 +32,58 @@ void Recipe::setPortion(int portion) {
 
 
 Ingredients *Recipe::CreateIngArray() {
-    Ingredients array[21];
+    Ingredients array[20];
     return array;
 }
 
 Ingredients* Recipe::SearchIngredient(std::string s){
-    for(int i; i<21; i++){
+    for(int i=0; i<21; i++){
         if(s == IngredientList[i].name){
             return &IngredientList[i];
         }
     }
+    return nullptr;
 }
+
+void Recipe::AddIngredient(Ingredients* ing, int pos) {
+    IngredientList[pos] = *ing;
+}
+
+bool Recipe::AddIngredient(int quantity, std::string s,std::string mesureunit) {
+    int pos = GetFreeIngredientSpot();
+    if(pos != -1 && SearchIngredient(s) == nullptr){
+        AddIngredient(new Ingredients(s,quantity,mesureunit),pos);
+        return true;
+    }
+    return false;
+}
+
+int Recipe::GetFreeIngredientSpot() {
+    for (int i = 0; i < 21 ; ++i) {
+        if(IngredientList[i].erased){
+            return i;
+        };
+    }
+    return -1;
+}
+
+void Recipe::PrintIngredients() {
+    for (int i = 0; i < 21 ; ++i) {
+        if(!IngredientList[i].erased){
+            std::cout<<"Name:"<<IngredientList[i].name<<"Quantity:"<<IngredientList[i].quantity<<IngredientList[i].mesureUnit<<std::endl;
+        };
+    }
+}
+
+void Recipe::Print() {
+    std::cout << "***************************************************"<<std::endl;
+    std::cout << "Name:" << name << std::endl;
+    std::cout << "Portions:" << portion << std::endl;
+    std::cout << "Ingredients:" << std::endl;
+    PrintIngredients();
+    std::cout << "***************************************************"<<std::endl;
+
+}
+
 
 
