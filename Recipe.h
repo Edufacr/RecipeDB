@@ -12,7 +12,7 @@
 struct Recipe {
     std::string name;
     int portion;
-    Ingredients* IngredientList;
+    Ingredients IngredientList[20];
 //Constructors
     Recipe();
 

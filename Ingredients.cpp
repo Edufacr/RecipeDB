@@ -8,7 +8,7 @@ Ingredients::Ingredients(const std::string &name, int quantity, const std::strin
                                                                                                  quantity(quantity),
                                                                                                  mesureUnit(
                                                                                                          mesureUnit) {
-    erased = true;
+    erased = false;
 }
 
 Ingredients::Ingredients() {

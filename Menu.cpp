@@ -61,7 +61,9 @@ void Menu::SelectOption(){
             cout<<"Try Again"<<endl;
             SelectOption();
 
-    }}
+    }
+    MainMenu();
+}
 
     void Menu::AddRecipeMenu(){
         cout<<"*Add Recipe*"<<endl;
@@ -76,7 +78,7 @@ void Menu::SelectOption(){
             cin>>portion;
 
             Recipe* recipe = new Recipe(name,portion);
-
+            List->InsertFirst(recipe);
             for(int i = 0;i<21;i++){
                 cout<<"¿Do you want to enter an ingredient?"<<endl;
                 cout<<"y/n"<<endl;
@@ -89,7 +91,8 @@ void Menu::SelectOption(){
                     break;
             }
         }
-        cout<<"Recipe Already Exists"<<endl;
+        else
+            cout<<"Recipe Already Exists"<<endl;
     }
     void Menu::AddIngredientMenu(Recipe* recipe){
     cout<<"Enter the name of the ingredient:"<<endl;
@@ -114,6 +117,8 @@ void Menu::SelectOption(){
     if(ToPrint != nullptr) {
         ToPrint->recipe->Print();
     }
+    else
+        cout<<"Recipe not found"<<endl;
 
 }
     void Menu::DeleteRecipeMenu(){

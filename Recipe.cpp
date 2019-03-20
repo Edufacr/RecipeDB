@@ -8,15 +8,15 @@
 Recipe::Recipe() {
     name = "";
     portion = 0;
-    IngredientList = NULL;
+   // IngredientList = nullptr;
 }
 
 Recipe::Recipe(const std::string &name, int portion) : name(name), portion(portion) {
-    IngredientList = CreateIngArray();
+   // IngredientList = CreateIngArray();
 }
 
-Recipe::Recipe(const std::string &name, int portion, Ingredients *IngredientList) : name(name), portion(portion),
-                                                                                    IngredientList(IngredientList) {}
+//Recipe::Recipe(const std::string &name, int portion, Ingredients *IngredientList) : name(name), portion(portion),
+  //                                                                                  IngredientList(IngredientList) {}
 
 //Getter n Setter
 void Recipe::setName(const std::string &name) {
@@ -37,7 +37,7 @@ Ingredients *Recipe::CreateIngArray() {
 }
 
 Ingredients* Recipe::SearchIngredient(std::string s){
-    for(int i=0; i<21; i++){
+    for(int i=0; i<20; i++){
         if(s == IngredientList[i].name){
             return &IngredientList[i];
         }
@@ -62,16 +62,16 @@ int Recipe::GetFreeIngredientSpot() {
     for (int i = 0; i < 21 ; ++i) {
         if(IngredientList[i].erased){
             return i;
-        };
+        }
     }
     return -1;
 }
 
 void Recipe::PrintIngredients() {
-    for (int i = 0; i < 21 ; ++i) {
+    for (int i = 0; i < 20 ; ++i) {
         if(!IngredientList[i].erased){
-            std::cout<<"Name:"<<IngredientList[i].name<<"Quantity:"<<IngredientList[i].quantity<<IngredientList[i].mesureUnit<<std::endl;
-        };
+            std::cout<<"Name: "<<IngredientList[i].name<<"  Quantity: "<<IngredientList[i].quantity<<IngredientList[i].mesureUnit<<std::endl;
+        }
     }
 }
 

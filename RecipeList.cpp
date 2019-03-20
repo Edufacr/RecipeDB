@@ -25,7 +25,7 @@ void RecipeList::Delete(RecipeNode *node) {
             DeleteFirst();
         }
         if(node->next == nullptr){
-            DeleteLast();
+           //6 DeleteLast();
            // FirstNode = nullptr;
         }
         else
