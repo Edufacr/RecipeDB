@@ -23,6 +23,8 @@ struct Menu{
     void ModifyIngredientQuantity();
     void AddIngredientMenu(Recipe* recipe);
     void DeleteIngredientMenu();
+    void AddIngredientMenuA(int quantity, std::string name, std::string mesureUnit, Recipe* recipe);
+    void AddIngredientMenu2();
 
 
 };

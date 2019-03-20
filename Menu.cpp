@@ -1,3 +1,5 @@
+#include <utility>
+
 //
 // Created by eduardo on 10/03/19.
 //
@@ -49,7 +51,7 @@ void Menu::SelectOption(){
             ModifyIngredientQuantity();
             break;
         case 7:
-            //AddIngredientMenu()  Search como parametro?
+            AddIngredientMenu2();
             break;
         case 8:
             DeleteIngredientMenu();
@@ -104,11 +106,38 @@ void Menu::SelectOption(){
     cout<<"Enter the mesure Unit"<<endl;
     string mesureUnit;
     cin>>mesureUnit;
-    if(recipe->AddIngredient(quantity,name,mesureUnit))
-        cout<<"Ingredient added successfully"<<endl;
-    else
-        cout<<"Error while adding ingredients"<<endl;
+    AddIngredientMenuA(quantity,name,mesureUnit,recipe);
 }
+    void Menu::AddIngredientMenuA(int quantity, string name, string mesureUnit, Recipe* recipe) {
+        if(recipe->AddIngredient(quantity, std::move(name), std::move(mesureUnit)))
+            cout<<"Ingredient added successfully"<<endl;
+        else
+            cout<<"Error while adding ingredients"<<endl;
+    }
+
+void Menu::AddIngredientMenu2(){
+    cout<<"Enter the name of the recipe:"<<endl;
+    string recipename;
+    cin>>recipename;
+    RecipeNode* recipe = List->Search(recipename);
+    if(recipe != nullptr) {
+        cout << "Enter the name of the ingredient:" << endl;
+        string name;
+        cin >> name;
+        cout << "Enter the quantity:" << endl;
+        int quantity;
+        cin >> quantity;
+        cout << "Enter the mesure Unit" << endl;
+        string mesureUnit;
+        cin >> mesureUnit;
+        AddIngredientMenuA(quantity, name, mesureUnit, recipe->recipe);
+    }
+    else
+        cout<<"Recipe not found"<<endl;
+
+}
+
+
     void Menu::SearchRecipeMenu(){
     cout<<"Enter the name of the recipe:"<<endl;
     string name;
@@ -180,7 +209,20 @@ void Menu::SelectOption(){
 
 }
 
-    void Menu::DeleteIngredientMenu(){}
+    void Menu::DeleteIngredientMenu(){
+        cout<<"Enter the name of the recipe:"<<endl;
+        string recipename;
+        cin>>recipename;
+        RecipeNode* recipe = List->Search(recipename);
+        if(recipe != nullptr) {
+            cout << "Enter the name of the ingredient:" << endl;
+            string name;
+            cin >> name;
+            recipe->recipe->SearchIngredient(name)->erased = true;
+        }
+        else
+            cout<<"Recipe not found"<<endl;
+}
 
 Menu::Menu(RecipeList* list) {
     List = list;
